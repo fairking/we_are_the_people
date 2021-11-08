@@ -119,7 +119,7 @@ server=freedns.afraid.org
 protocol=freedns
 login=my_login
 password=****
-mysite.mooo.com
+mycloud.mooo.com
 ```
 # Save the file and then enable the service:
 ```
@@ -135,7 +135,7 @@ systemctl start ddclient.service
 # Add the trusted_domains to the nextcloud config (`/var/www/nextcloud/config/config.php`):
 ```
   array (
-    0 => 'mydomain.mooo.com',
+    0 => 'mycloud.mooo.com',
     1 => '192.168.0.5:8781',
   ),
 ```
