@@ -3,11 +3,11 @@
 I was thinking about to install the nextcloud on RockyLinux, but found some issue there [Rocky Linux - Rocky is not bootable](https://forums.rockylinux.org/t/rocky-is-not-bootable/4474). So I decided that Fedora is the best candidate. I bought a Home Server for a decent price [B6 Mini PC](https://www.aliexpress.com/item/4001178155704.html).
 Please find my steps bellow how I did setup my server to run [Nextcould](https://nextcloud.com/):
 
-# After Fedora installation please log into the Home Server via ssh. I recommend [WinSCP](https://winscp.net/) for windows:
+### After Fedora installation please log into the Home Server via ssh. I recommend [WinSCP](https://winscp.net/) for windows:
 ![image](https://user-images.githubusercontent.com/13495631/140672951-f4a8fc6b-77dc-4eef-a932-181765ca22ad.png)
-# Or you can do it via your smartphone using [ConnectBot](https://f-droid.org/en/packages/org.connectbot/).
+### Or you can do it via your smartphone using [ConnectBot](https://f-droid.org/en/packages/org.connectbot/).
 
-
+>> Please execute linux commands line by line
 
 # Set the static IP (make sure the router is out of DHCP range)
 ```
@@ -19,7 +19,7 @@ nmcli connection modify <UUID> IPv4.dns "192.168.0.1,176.103.130.130,176.103.130
 nmcli connection modify <UUID> IPv4.method manual
 nmcli connection down <UUID> && nmcli connection up <UUID>
 ```
-# You will luse a connection to the server, so you have to login into ssh again with different host.
+### You will luse a connection to the server, so you have to login into ssh again with different host.
 
 # Setup Apache
 ```
@@ -35,7 +35,7 @@ dnf install php php-gd php-mbstring php-intl php-pecl-apcu php-mysqlnd php-pecl-
 systemctl enable --now httpd
 nano /etc/httpd/conf.d/nextcloud.conf
 ```
-# Add the following to the nextcloud.conf file
+### Add the following to the nextcloud.conf file
 ```
 Listen 8781
 
@@ -87,31 +87,32 @@ restorecon -Rv '/var/www/nextcloud/'
 restorecon -Rv '/var/data/nextcloud/'
 systemctl restart httpd
 ```
-# The recommend PHP memory limit for Nextcloud is 512M. You can edit the memory_limit variable in the /etc/php.ini configuration file and restart your httpd service.
-# Go to website http://192.168.0.5:8781/ to setup the instance.
+### The recommend PHP memory limit for Nextcloud is 512M. You can edit the `memory_limit` variable in the `nano /etc/php.ini` configuration file and restart your httpd service `systemctl restart httpd`.
 
-# Root disk space quota
+### Go to website http://192.168.0.5:8781/ to setup the instance.
+
+# Increase Root disk space quota
 ```
 vgs
 df -hT
 ```
-# Please add as many space as you have free (in this example is 200Gb)
+### Please add as many space as you have free (in this example is 200Gb)
 ```
 lvresize -L +200G --resizefs /dev/mapper/fedora_fedora-root
 ```
 
 # DDNS
-# Find your ip address
+### Find your ip address
 ```
 curl –s https://icanhazip.com
 ```
-# Use freedns.afraid.org to register your dns
-# And then
+### Use freedns.afraid.org to register your dns
+### And then
 ```
 dnf install ddclient
 nano /etc/ddclient.conf
 ```
-# Add the following config lines:
+### Add the following config lines:
 ```
 ## FreeDNS.afraid.org
 use=if, if=eth0
@@ -121,18 +122,19 @@ login=my_login
 password=****
 mycloud.mooo.com
 ```
-# Save the file and then enable the service:
+### Save the file and then enable the service:
 ```
 systemctl enable ddclient.service
 systemctl start ddclient.service
 ```
 
-# Router needs to be configured (Go ro the router -> Port forwarding)
+# Router needs to be configured (Go to the router -> Port forwarding)
 ```
 # Local IP address	| Local Port range	| External Port range	| Protocol  |	Enabled	Delete
 # 192.168.0.5	      |	8781-8781         |	443-443	            |	TCP       |	
 ```
-# Add the trusted_domains to the nextcloud config (`/var/www/nextcloud/config/config.php`):
+
+# Add the trusted_domains to the nextcloud config (`nano /var/www/nextcloud/config/config.php`):
 ```
   array (
     0 => 'mycloud.mooo.com',
@@ -146,9 +148,9 @@ dnf install certbot python3-certbot-apache mod_ssl
 systemctl restart httpd
 certbot --apache
 ```
-# Needs to rename (disable) `/etc/httpd/conf.d/nextcloud-le-ssl.conf.bak` and move the ssl certificates to `/etc/httpd/conf.d/nextcloud.conf` due to ERR_SSL_PROTOCOL_ERROR
+### Needs to rename (disable) `/etc/httpd/conf.d/nextcloud-le-ssl.conf.bak` and move the ssl certificates to `/etc/httpd/conf.d/nextcloud.conf` due to ERR_SSL_PROTOCOL_ERROR
 
-# In order to run background tasks it needs to configure a cron:
+# Cron
 ```
 nano /etc/systemd/system/nextcloudcron.service
 ```
@@ -194,4 +196,4 @@ https://user-images.githubusercontent.com/13495631/140672253-d78be6bc-ed2a-4906-
 
 ![image](https://user-images.githubusercontent.com/13495631/140669294-6ba9bb14-869b-4f61-9d5b-94b012262541.png)
 
-I am very sorry for the error at the end, but please ask questions into the [section](https://github.com/fairking/we_are_the_people/issues/1). Thank you for your help.
+Please ask questions into the [section](https://github.com/fairking/we_are_the_people/issues/1). Thank you for your help.
