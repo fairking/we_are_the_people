@@ -186,6 +186,66 @@ WantedBy=timers.target
 systemctl enable --now nextcloudcron.timer
 ```
 
+# Caching (Redis) (Optional, currently NOT WORKING):
+```
+dnf install redis
+systemctl enable redis --now
+nano /etc/redis/redis.conf
+```
+
+### Add the following lines to the end of the file:
+```
+maxmemory 1gb 
+maxmemory-policy allkeys-lru
+requiredpass {YOUR_PASSWORD}
+unixsocket /run/redis/redis.sock
+unixsocketperm 775
+bind 127.0.0.1
+daemonize yes
+supervised auto
+stop-writes-on-bgsave-error no
+rdbcompression yes
+```
+
+### You might also need a change in the file `/usr/lib/systemd/system/redis.service`:
+Rename `--daemonize no` to `--daemonize yes`.
+
+### Restart the service after config changes:
+```
+systemctl restart redis
+```
+
+### Add the following lines to the nextcloud config `nano /var/www/nextcloud/config/config.php` with your redis password:
+```
+  'memcache.local' => '\OC\Memcache\APCu',
+  'memcache.locking' => '\OC\Memcache\Redis',
+  'memcache.distributed' => '\OC\Memcache\Redis',
+  'redis' => [
+     'host'     => '/run/redis/redis.sock',
+     'port'     => 6379,
+     'dbindex'  => 0,
+     'password' => '{YOUR_REDIS_PASSWORD}',
+     'timeout'  => 1.5,
+  ],
+```
+
+### Add session lock to the end of `nano /etc/php.ini` file:
+```
+[redis]
+redis.session.locking_enabled=1
+redis.session.lock_retries=-1
+redis.session.lock_wait_time=10000
+```
+
+### And then setting up the redis connection:
+```
+usermod -g apache redis
+usermod -a -G redis apache
+chown -R redis:apache /run/redis
+systemctl restart httpd
+```
+
+
 # After all of that steps we can install Nextcloud mobile app and sync all our photos and videos with the Home Cloud.
 https://user-images.githubusercontent.com/13495631/140672253-d78be6bc-ed2a-4906-908f-aeb6ce57deac.mp4
 
