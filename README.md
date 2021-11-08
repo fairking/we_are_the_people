@@ -106,7 +106,7 @@ dnf install ddclient
 nano /etc/ddclient.conf
 ```
 # Add the following config lines:
-###################
+```
 ## FreeDNS.afraid.org
 use=if, if=eth0
 server=freedns.afraid.org
@@ -114,7 +114,8 @@ protocol=freedns
 login=my_login
 password=****
 mysite.mooo.com
-##################
+```
+# Save the file and then enable the service:
 ```
 systemctl enable ddclient.service
 systemctl start ddclient.service
@@ -122,7 +123,7 @@ systemctl start ddclient.service
 
 # Router needs to be configured (Go ro the router -> Port forwarding)
 # Local IP address	| Local Port range	| External Port range	| Protocol	Enabled	Delete
-# 192.168.0.53	|	8781-8781 |	443-443	|	TCP |	
+# 192.168.0.5	|	8781-8781 |	443-443	|	TCP |	
 # Add the trusted_domains to the nextcloud config (`/var/www/nextcloud/config/config.php`):
 ```
   array (
@@ -138,3 +139,7 @@ certbot --apache
 # Needs to look at `/etc/httpd/conf.d/nextcloud-le-ssl.conf.bak` and move the ssl certificates to `/etc/httpd/conf.d/nextcloud.conf` due to ERR_SSL_PROTOCOL_ERROR
 
 # After all of that steps we can install Nextcloud mobile app and sync all our photos and videos with the Home Cloud.
+
+# Please ask any questions here but BEFORE PLEASE search the command you are executing: https://github.com/fairking/we_are_the_people/issues
+
+![image](https://user-images.githubusercontent.com/13495631/140669294-6ba9bb14-869b-4f61-9d5b-94b012262541.png)
