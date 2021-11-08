@@ -146,7 +146,7 @@ dnf install certbot python3-certbot-apache mod_ssl
 systemctl restart httpd
 certbot --apache
 ```
-# Needs to look at `/etc/httpd/conf.d/nextcloud-le-ssl.conf.bak` and move the ssl certificates to `/etc/httpd/conf.d/nextcloud.conf` due to ERR_SSL_PROTOCOL_ERROR
+# Needs to rename (disable) `/etc/httpd/conf.d/nextcloud-le-ssl.conf.bak` and move the ssl certificates to `/etc/httpd/conf.d/nextcloud.conf` due to ERR_SSL_PROTOCOL_ERROR
 
 # After all of that steps we can install Nextcloud mobile app and sync all our photos and videos with the Home Cloud.
 https://user-images.githubusercontent.com/13495631/140672253-d78be6bc-ed2a-4906-908f-aeb6ce57deac.mp4
@@ -158,4 +158,4 @@ https://user-images.githubusercontent.com/13495631/140672253-d78be6bc-ed2a-4906-
 
 ![image](https://user-images.githubusercontent.com/13495631/140669294-6ba9bb14-869b-4f61-9d5b-94b012262541.png)
 
-I am very sorry for the error in the end, but please ask questions into the [section](https://github.com/fairking/we_are_the_people/issues/1). Thank you for your help.
+I am very sorry for the error at the end, but please ask questions into the [section](https://github.com/fairking/we_are_the_people/issues/1). Thank you for your help.
