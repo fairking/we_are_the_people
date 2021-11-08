@@ -148,6 +148,42 @@ certbot --apache
 ```
 # Needs to rename (disable) `/etc/httpd/conf.d/nextcloud-le-ssl.conf.bak` and move the ssl certificates to `/etc/httpd/conf.d/nextcloud.conf` due to ERR_SSL_PROTOCOL_ERROR
 
+# In order to run background tasks it needs to configure a cron:
+```
+nano /etc/systemd/system/nextcloudcron.service
+```
+### Add the following lines to the file:
+```
+[Unit]
+Description=Nextcloud cron.php job
+
+[Service]
+User=apache
+ExecStart=/usr/bin/php -f /var/www/nextcloud/cron.php
+KillMode=process
+```
+### Save the file and then create another one:
+```
+nano /etc/systemd/system/nextcloudcron.timer
+```
+### Add the following lines to the file:
+```
+[Unit]
+Description=Run Nextcloud cron.php every 5 minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=5min
+Unit=nextcloudcron.service
+
+[Install]
+WantedBy=timers.target
+```
+### Enable the cron
+```
+systemctl enable --now nextcloudcron.timer
+```
+
 # After all of that steps we can install Nextcloud mobile app and sync all our photos and videos with the Home Cloud.
 https://user-images.githubusercontent.com/13495631/140672253-d78be6bc-ed2a-4906-908f-aeb6ce57deac.mp4
 
