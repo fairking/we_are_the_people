@@ -128,8 +128,10 @@ systemctl start ddclient.service
 ```
 
 # Router needs to be configured (Go ro the router -> Port forwarding)
-# Local IP address	| Local Port range	| External Port range	| Protocol	Enabled	Delete
-# 192.168.0.5	|	8781-8781 |	443-443	|	TCP |	
+```
+# Local IP address	| Local Port range	| External Port range	| Protocol  |	Enabled	Delete
+# 192.168.0.5	      |	8781-8781         |	443-443	            |	TCP       |	
+```
 # Add the trusted_domains to the nextcloud config (`/var/www/nextcloud/config/config.php`):
 ```
   array (
@@ -139,9 +141,11 @@ systemctl start ddclient.service
 ```
 
 # LetsEncrypt
+```
 dnf install certbot python3-certbot-apache mod_ssl
 systemctl restart httpd
 certbot --apache
+```
 # Needs to look at `/etc/httpd/conf.d/nextcloud-le-ssl.conf.bak` and move the ssl certificates to `/etc/httpd/conf.d/nextcloud.conf` due to ERR_SSL_PROTOCOL_ERROR
 
 # After all of that steps we can install Nextcloud mobile app and sync all our photos and videos with the Home Cloud.
