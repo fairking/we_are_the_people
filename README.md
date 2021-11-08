@@ -112,7 +112,7 @@ curl –s https://icanhazip.com
 dnf install ddclient
 nano /etc/ddclient.conf
 ```
-### Add the following config lines:
+### Add the following config lines (replace `mycloud.mooo.com` with your domain):
 ```
 ## FreeDNS.afraid.org
 use=if, if=eth0
