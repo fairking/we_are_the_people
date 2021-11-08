@@ -153,3 +153,5 @@ https://user-images.githubusercontent.com/13495631/140672253-d78be6bc-ed2a-4906-
 # Please ask any questions here but BEFORE PLEASE search the command you are executing: https://github.com/fairking/we_are_the_people/issues
 
 ![image](https://user-images.githubusercontent.com/13495631/140669294-6ba9bb14-869b-4f61-9d5b-94b012262541.png)
+
+I am very sorry for the error in the end, but please ask questions into the [section](https://github.com/fairking/we_are_the_people/issues/1). Thank you for your help.
