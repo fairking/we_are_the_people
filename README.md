@@ -246,6 +246,31 @@ systemctl restart httpd
 ```
 
 
+# Adding extra hard drive
+### Option 1 - Extending ROOT (+200G change to your size)
+```
+lsblk
+pvcreate /dev/sdb
+pvs
+vgs
+vgextend fedora_fedora /dev/sdb
+lvresize -L +200G --resizefs /dev/mapper/fedora_fedora-root
+```
+### Option 2 - Extending as a separate mounted folder
+```
+mkdir /data
+fdisk -l
+fdisk /dev/sdb
+n # Create partition
+p # Partition type
+1 # Partition number
+<Enter> # First sector (default)
+<Enter> # Last sector (default)
+w # Save changes and exit
+mkfs.ext4 /dev/sdb
+mount /dev/sdb /data
+```
+
 # After all of that steps we can install Nextcloud mobile app and sync all our photos and videos with the Home Cloud.
 https://user-images.githubusercontent.com/13495631/140672253-d78be6bc-ed2a-4906-908f-aeb6ce57deac.mp4
 
