@@ -271,7 +271,7 @@ mkfs.ext4 /dev/sdb
 mount /dev/sdb /data
 ```
 
-# Optional: Samba (currently NOT WORKING)
+# Optional: Samba Share Files
 ```
 dnf install samba
 systemctl enable smb --now
