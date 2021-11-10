@@ -186,7 +186,7 @@ WantedBy=timers.target
 systemctl enable --now nextcloudcron.timer
 ```
 
-# Caching (Redis) (Optional, currently NOT WORKING):
+# Optional: Caching (Redis) (currently NOT WORKING):
 ```
 dnf install redis
 systemctl enable redis --now
@@ -246,7 +246,7 @@ systemctl restart httpd
 ```
 
 
-# Adding extra hard drive
+# Optional: Adding extra hard drive
 ### Option 1 - Extending ROOT (+200G change to your size)
 ```
 lsblk
@@ -271,7 +271,7 @@ mkfs.ext4 /dev/sdb
 mount /dev/sdb /data
 ```
 
-# Samba (Currently not working)
+# Optional: Samba (currently NOT WORKING)
 ```
 dnf install samba
 systemctl enable smb --now
