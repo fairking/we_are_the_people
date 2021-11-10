@@ -279,7 +279,6 @@ firewall-cmd --get-active-zones
 firewall-cmd --permanent --zone=FedoraServer --add-service=samba
 firewall-cmd --reload
 useradd --system samba_home
-passwd samba_home
 mkdir /data/samba_home
 chown -R samba_home /data/samba_home
 smbpasswd -a samba_home
@@ -289,17 +288,15 @@ nano /etc/samba/smb.conf
 ```
 ### Add the following lines to the file:
 ```
-[global]
-    min protocol = SMB2
 [samba_home]
     comment = My Home Server
     path = /data/samba_home
     writeable = yes
     browseable = yes
-    public = yes
+    public = no
     create mask = 0644
     directory mask = 0755
-    write list = user
+    write list = samba_home
     force user = samba_home
 ```
 ### Save the file and then
