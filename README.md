@@ -271,6 +271,43 @@ mkfs.ext4 /dev/sdb
 mount /dev/sdb /data
 ```
 
+# Samba (Currently not working)
+```
+dnf install samba
+systemctl enable smb --now
+firewall-cmd --get-active-zones
+firewall-cmd --permanent --zone=FedoraServer --add-service=samba
+firewall-cmd --reload
+useradd --system samba_home
+passwd samba_home
+mkdir /data/samba_home
+chown -R samba_home /data/samba_home
+smbpasswd -a samba_home
+semanage fcontext --add --type "samba_share_t" /data/samba_home
+restorecon -R /data/samba_home
+nano /etc/samba/smb.conf
+```
+### Add the following lines to the file:
+```
+[global]
+    min protocol = SMB2
+[samba_home]
+    comment = My Home Server
+    path = /data/samba_home
+    writeable = yes
+    browseable = yes
+    public = yes
+    create mask = 0644
+    directory mask = 0755
+    write list = user
+    force user = samba_home
+```
+### Save the file and then
+```
+systemctl restart smb
+```
+
+
 # After all of that steps we can install Nextcloud mobile app and sync all our photos and videos with the Home Cloud.
 https://user-images.githubusercontent.com/13495631/140672253-d78be6bc-ed2a-4906-908f-aeb6ce57deac.mp4
 
