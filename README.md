@@ -1,6 +1,6 @@
 # Private Smartphone Cloud
 
-I was thinking about to install the nextcloud on RockyLinux, but found some issue there [Rocky Linux - Rocky is not bootable](https://forums.rockylinux.org/t/rocky-is-not-bootable/4474). So I decided that Fedora is the best candidate. I bought a Home Server for a decent price [B6 Mini PC](https://www.aliexpress.com/item/4001178155704.html).
+I was thinking about to install the nextcloud on RockyLinux, but found some issue there [Rocky Linux - Rocky is not bootable](https://forums.rockylinux.org/t/rocky-is-not-bootable/4474). So I decided that [Fedora](https://getfedora.org/en/server/) is the best candidate. I bought a Home Server for a decent price [B6 Mini PC](https://www.aliexpress.com/item/4001178155704.html).
 Please find my steps bellow how I did setup my server to run [Nextcould](https://nextcloud.com/):
 
 ### After Fedora installation please log into the Home Server via ssh. I recommend [WinSCP](https://winscp.net/) for windows:
