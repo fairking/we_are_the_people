@@ -274,7 +274,7 @@ nano /etc/fstab
 ```
 And then add the following line at the end:
 ```
-/dev/sdb /data ext3 defaults 0 2
+/dev/sdb /data ext4 defaults 0 2
 ```
 
 # Optional: Samba Share Files
