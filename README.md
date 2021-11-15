@@ -96,11 +96,10 @@ systemctl restart httpd
 ```
 vgs
 df -hT
+pvs
+lsblk
 ```
-### Please add as many space as you have free (in this example is 200Gb)
-```
-lvresize -L +200G --resizefs /dev/mapper/fedora_fedora-root
-```
+
 
 # DDNS
 ### Find your ip address
