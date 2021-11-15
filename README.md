@@ -270,6 +270,11 @@ p # Partition type
 w # Save changes and exit
 mkfs.ext4 /dev/sdb
 mount /dev/sdb /data
+nano /etc/fstab
+```
+And then add the following line at the end:
+```
+/dev/sdb /data ext3 defaults 0 2
 ```
 
 # Optional: Samba Share Files
