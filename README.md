@@ -150,6 +150,27 @@ certbot --apache
 ```
 ### Needs to rename (disable) `/etc/httpd/conf.d/nextcloud-le-ssl.conf.bak` and move the ssl certificates to `/etc/httpd/conf.d/nextcloud.conf` due to ERR_SSL_PROTOCOL_ERROR
 
+# Enable memory cache
+```
+nano /etc/php.d/40-apcu.ini
+nano /etc/php.d/10-opcache.ini
+```
+### Uncomment the following lines
+```
+apc.enabled=1
+apc.enable_cli=1
+opcache.enable=1
+opcache.enable_cli=1
+```
+### In the nexcloud config
+```
+nano /var/www/nextcloud/config/config.php
+```
+### Make sure you have the following line
+```
+'memcache.local' => '\\OC\\Memcache\\APCu',
+```
+
 # Cron
 ```
 nano /etc/systemd/system/nextcloudcron.service
