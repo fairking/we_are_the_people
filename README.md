@@ -83,6 +83,7 @@ semanage fcontext -a -t httpd_sys_rw_content_t '/var/data/nextcloud(/.*)?'
 semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/.httpaccess'
 semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/.user.ini'
 semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/3rdparty/aws/aws-sdk-php/src/data/logs(/.*)?'
+semanage fcontext -a -t httpd_sys_rw_content_t '/var/www/nextcloud/update(/.*)?'
 restorecon -Rv '/var/www/nextcloud/'
 restorecon -Rv '/var/data/nextcloud/'
 systemctl restart httpd
