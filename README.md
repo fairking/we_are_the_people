@@ -93,14 +93,6 @@ systemctl restart httpd
 # Go to website
 ### http://192.168.0.5:8781/ to setup the instance.
 
-# Increase Root disk space quota
-```
-vgs
-df -hT
-pvs
-lsblk
-```
-
 
 # DDNS
 ### Find your ip address
