@@ -88,7 +88,7 @@ restorecon -Rv '/var/www/nextcloud/'
 restorecon -Rv '/var/data/nextcloud/'
 systemctl restart httpd
 ```
-### The recommend PHP memory limit for Nextcloud is 512M. You can edit the `memory_limit` variable in the `nano /etc/php.ini` configuration file and restart your httpd service `systemctl restart httpd`.
+### The recommend PHP memory limit for Nextcloud is `2048M`. You can edit the `memory_limit` variable in the `nano /etc/php.ini` configuration file and restart your httpd service `systemctl restart httpd`.
 
 # Go to website
 ### http://192.168.0.5:8781/ to setup the instance.
