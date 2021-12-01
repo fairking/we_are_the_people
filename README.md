@@ -99,13 +99,13 @@ systemctl restart httpd
 ```
 curl –s https://icanhazip.com
 ```
-### Use freedns.afraid.org to register your dns
+### Use freedns.afraid.org or desec.io to register your dns
 ### And then
 ```
 dnf install ddclient
 nano /etc/ddclient.conf
 ```
-### Add the following config lines (replace `mycloud.mooo.com` with your domain):
+### Add the following config lines (replace `mycloud.mooo.com` with your dynamic domain registered):
 ```
 ## FreeDNS.afraid.org
 use=if, if=eth0
