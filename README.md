@@ -62,7 +62,7 @@ systemctl enable --now mariadb
 mysql_secure_installation
 mysql -p
 create database nextcloud;
-create user nextcloud@localhost identified by 'Admin12345!';
+create user nextcloud@localhost identified by 'YOUR_DATABASE_PASSWORD';
 grant all privileges on nextcloud.* to nextcloud@localhost;
 flush privileges;
 exit;
