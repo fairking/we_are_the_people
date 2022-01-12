@@ -323,6 +323,49 @@ nano /etc/samba/smb.conf
 systemctl restart smb
 ```
 
+# Troubleshooting
+
+If you have any issues with your setup first of all you can look at the log files.
+1. Nextcloud error log file: `/var/data/nextcloud/nextcloud.log`
+2. SELinux log file: `/var/log/audit/audit.log`
+
+In case of any SELinux problems you can check the potential solution in the following way:
+1. Run command `journalctl -t setroubleshoot` to find a potensial denial. For example:
+```
+Nov 05 23:33:59 fedora setroubleshoot[28766]: SELinux is preventing php-fpm from write access on the directory config. For complete SELinux messages run: sealert -l 543ee3f2-12c3-44c4-bf48-834196bb79a1
+```
+2. Next run `sealert -l 543ee3f2-12c3-44c4-bf48-834196bb79a1` to get the potential solution of the problem like the example bellow:
+```
+Nov 05 23:33:59 fedora setroubleshoot[28766]: SELinux is preventing php-fpm from write access on the directory config.
+
+*****  Plugin httpd_write_content (92.2 confidence) suggests   ***************
+
+If you want to allow php-fpm to have write access on the config directory
+Then you need to change the label on 'config'
+Do
+# semanage fcontext -a -t httpd_sys_rw_content_t 'config'
+# restorecon -v 'config'
+
+*****  Plugin catchall_boolean (7.83 confidence) suggests   ******************
+
+If you want to allow httpd to unified
+Then you must tell SELinux about this by enabling the 'httpd_unified' boolean.
+
+Do
+setsebool -P httpd_unified 1
+
+*****  Plugin catchall (1.41 confidence) suggests   **************************
+
+If you believe that php-fpm should be allowed write access on the config directory by default.
+Then you should report this as a bug.
+You can generate a local policy module to allow this access.
+Do
+allow this access for now by executing:
+# ausearch -c 'php-fpm' --raw | audit2allow -M my-phpfpm
+# semodule -X 300 -i my-phpfpm.pp
+```
+
+
 
 # After all of that steps we can install Nextcloud mobile app and sync all our photos and videos with the Home Cloud.
 https://user-images.githubusercontent.com/13495631/140672253-d78be6bc-ed2a-4906-908f-aeb6ce57deac.mp4
