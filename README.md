@@ -332,7 +332,8 @@ If you have any issues with your setup first of all you can look at the log file
 In case of any SELinux problems you can check the potential solution in the following way:
 1. Run command `journalctl -t setroubleshoot` to find a potensial denial. For example:
 ```
-Nov 05 23:33:59 fedora setroubleshoot[28766]: SELinux is preventing php-fpm from write access on the directory config. For complete SELinux messages run: sealert -l 543ee3f2-12c3-44c4-bf48-834196bb79a1
+Nov 05 23:33:59 fedora setroubleshoot[28766]: SELinux is preventing php-fpm from write access on the directory config.
+For complete SELinux messages run: sealert -l 543ee3f2-12c3-44c4-bf48-834196bb79a1
 ```
 2. Next run `sealert -l 543ee3f2-12c3-44c4-bf48-834196bb79a1` to get the potential solution of the problem like the example bellow:
 ```
